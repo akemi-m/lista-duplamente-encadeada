@@ -1,4 +1,3 @@
-// operador diamante
 public class No<T> {
   private T dado;
   private No<T> anterior;
