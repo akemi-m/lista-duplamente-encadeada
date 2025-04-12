@@ -5,7 +5,6 @@ import static java.lang.Double.parseDouble;
 public class Main {
 
   static ListaDupla<CidadeOrigem> listaCidadeOrigem = new ListaDupla<>();
-  static ListaDupla<CidadeDestino> listaCidadeDestino = new ListaDupla<>();
 
   public static void main(String[] args) {
     menuPrincipal();
@@ -49,10 +48,10 @@ public class Main {
           listarCidades();
           break;
         case 4:
-          verificarLigacoes();
+          // verificarLigacoes();
           break;
         case 5:
-          consultarTempoMaximo();
+          // consultarTempoMaximo();
           break;
         default:
           break;
@@ -62,13 +61,13 @@ public class Main {
 
   public static CidadeOrigem cadastrarCidadeOrigem() {
     String nomeCidadeOrigem;
-    ListaDupla<CidadeDestino> conexoesDiretas = null;
-    CidadeOrigem cidadeOrigem;
-
     nomeCidadeOrigem = showInputDialog("Nome da cidade de origem: ");
-    cidadeOrigem = new CidadeOrigem(nomeCidadeOrigem, conexoesDiretas);
-    listaCidadeOrigem.inserir(cidadeOrigem);
+    CidadeOrigem cidadeOrigem = new CidadeOrigem(nomeCidadeOrigem);
+    cidadeOrigem.setConexoesDiretas(new ListaDupla<>());
 
+    showMessageDialog(null, "Cidade de origem " + cidadeOrigem + " criada com sucesso.");
+
+    listaCidadeOrigem.inserir(cidadeOrigem);
     return cidadeOrigem;
   }
 
@@ -91,7 +90,9 @@ public class Main {
     fatorTrafego = parseDouble(showInputDialog("Fator de tráfego (entre 0.0 e 2.0):"));
     nPedagios = parseInt(showInputDialog("Número de pedágios no trajeto:"));
 
-    listaCidadeDestino.inserir(new CidadeDestino(nomeCidadeDestino, distancia, fatorTrafego, nPedagios));
+    CidadeDestino cidadeDestino = new CidadeDestino(nomeCidadeDestino, distancia, fatorTrafego, nPedagios);
+
+    cidadeOrigem.getConexoesDiretas().inserir(cidadeDestino);
   }
 
   public static CidadeOrigem verificarCidadeOrigem() {
@@ -110,12 +111,37 @@ public class Main {
     } else {
       showMessageDialog(null, nomeCidade + " não foi encontrada.");
     }
-
+    
     return cidadeOrigem;
   }
 
   public static void listarCidades() {
-    listaCidadeOrigem.imprimir();
+    No<CidadeOrigem> aux = listaCidadeOrigem.getInicio();
+    String msg = "";
 
+    while (aux != null) {
+      CidadeOrigem cidadeOrigem = aux.getDado();
+      msg += "Cidade de origem: " + cidadeOrigem.getnomeCidadeOrigem() + "\n";
+      ListaDupla<CidadeDestino> conexoesDiretas = cidadeOrigem.getConexoesDiretas();
+      if (!conexoesDiretas.estaVazia()) {
+        msg += "Conexões Diretas:\n";
+        No<CidadeDestino> auxDestino = conexoesDiretas.getInicio();
+        while (auxDestino != null) {
+          CidadeDestino cidadeDestino = auxDestino.getDado();
+          msg += "- Cidade de Destino: " + cidadeDestino.getNomeCidade() + "\n";
+          msg += "- Distância: " + cidadeDestino.getDistancia() + "km" + "\n";
+          msg += "- Fator de tráfego: " + cidadeDestino.getFatorTrafego() + "\n";
+          msg += "- Número de pedágios: " + cidadeDestino.getnPedagios() + "\n\n";
+
+          auxDestino = auxDestino.getProximo();
+        }
+      } else {
+        msg += "Cidade não possui conexões diretas\n";
+      }
+
+      aux = aux.getProximo();
+    }
+    showMessageDialog(null, msg);
   }
 }
+

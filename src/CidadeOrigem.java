@@ -29,6 +29,13 @@ public class CidadeOrigem {
 
   @Override
   public String toString() {
-    return "Nome da cidade de origem: " + nomeCidadeOrigem;
+    return nomeCidadeOrigem;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+      CidadeOrigem cidadeOrigem = (CidadeOrigem) obj;
+      // A comparação de String é feita com equals, não com ==
+      return cidadeOrigem.nomeCidadeOrigem.equalsIgnoreCase(nomeCidadeOrigem);
   }
 }

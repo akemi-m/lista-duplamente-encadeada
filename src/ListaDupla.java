@@ -57,4 +57,13 @@ public class ListaDupla<T> {
       return false;
     }
   }
+
+  public No<T> getInicio() {
+    return inicio;
+  }
+
+  public No<T> getFim() {
+    return fim;
+  }
+
 }
