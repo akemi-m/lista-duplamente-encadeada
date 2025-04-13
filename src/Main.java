@@ -8,12 +8,6 @@ public class Main {
 
   public static void main(String[] args) {
     menuPrincipal();
-
-    // listaDupla.inserir(new CidadeDestino("Batata", 15));
-    // listaDupla.inserir(new CidadeDestino("Alface", 5));
-    // listaDupla.inserir(new CidadeDestino("Selmini", 100));
-    // listaDupla.inserir(new CidadeDestino("Arroz", 8));
-
   }
 
   public static void menuPrincipal() {
@@ -48,7 +42,7 @@ public class Main {
           listarCidades();
           break;
         case 4:
-          // verificarLigacoes();
+          verificarLigacoes();
           break;
         case 5:
           // consultarTempoMaximo();
@@ -111,7 +105,7 @@ public class Main {
     } else {
       showMessageDialog(null, nomeCidade + " não foi encontrada.");
     }
-    
+
     return cidadeOrigem;
   }
 
@@ -143,5 +137,28 @@ public class Main {
     }
     showMessageDialog(null, msg);
   }
-}
 
+  public static void verificarLigacoes() {
+    String nomeCidadeOrigem = showInputDialog("Digite o nome da cidade de origem: ");
+    String nomeCidadeDestino = showInputDialog("Digite o nome da cidade de destino: ");
+
+    No<CidadeOrigem> aux = listaCidadeOrigem.pesquisar(new CidadeOrigem(nomeCidadeOrigem));
+
+    if (aux == null) {
+      showMessageDialog(null, "Cidade de destino não encontrada.");
+      return;
+    }
+
+    ListaDupla<CidadeDestino> conexoesDiretas = aux.getDado().getConexoesDiretas();
+    No<CidadeDestino> aux2 = conexoesDiretas.pesquisar(new CidadeDestino(nomeCidadeDestino));
+
+    if (aux2 == null) {
+      showMessageDialog(null, "Não existe ligação direta entre " + nomeCidadeOrigem + " e " + nomeCidadeDestino);
+      return;
+    }
+
+    showMessageDialog(null, "Existe ligação direta entre " + nomeCidadeOrigem + " e " + nomeCidadeDestino
+        + "\nTempo estimado: " + aux2.getDado().tempoEstimadoDeEntrega() + " minutos.");
+    return;
+  }
+}

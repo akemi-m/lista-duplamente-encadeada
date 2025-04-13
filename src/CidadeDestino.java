@@ -11,6 +11,15 @@ public class CidadeDestino {
     this.nPedagios = nPedagios;
   }
 
+  public CidadeDestino(String nomeCidadeDestino) {
+    this(nomeCidadeDestino, 0, 0, 0);
+  }
+
+  public double tempoEstimadoDeEntrega() {
+    double tempo = (distancia * fatorTrafego) + (nPedagios * 2);
+    return tempo;
+  }
+
   public String getNomeCidade() {
     return nomeCidadeDestino;
   }
@@ -46,5 +55,12 @@ public class CidadeDestino {
   @Override
   public String toString() {
     return nomeCidadeDestino + distancia + fatorTrafego + nPedagios;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    CidadeDestino cidadeDestino = (CidadeDestino) obj;
+    // A comparação de String é feita com equals, não com ==
+    return cidadeDestino.nomeCidadeDestino.equalsIgnoreCase(nomeCidadeDestino);
   }
 }
