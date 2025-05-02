@@ -1,11 +1,11 @@
 # Atividade II - Lista Duplamente Encadeada
 
-Este repositório armazena uma aplicação da estrutra de dados "Lista Duplamente Encadeada", como parte da disciplina Estrutura de Dados (ESPM - Sistemas de Informação - 3° semestre) lecionada pelo Prof. Dr. Antonio Marcos Selmini.
+Este repositório armazena uma aplicação da Estrutura de Dados "Lista Duplamente Encadeada", como parte da disciplina Estrutura de Dados (ESPM - Sistemas de Informação - 3° semestre) lecionada pelo Prof. Dr. Antonio Marcos Selmini.
 
 Esta atividade foi desenvolvida por:
 
-- Gabriel Cardoso Campos Rodrigues
-- Julia Akemi Mullis
+- [Gabriel Cardoso Campos Rodrigues](https://github.com/gabrielccr-555)
+- [Julia Akemi Mullis](https://github.com/akemi-m)
 
 ## Enunciado
 
